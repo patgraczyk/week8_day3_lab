@@ -1,10 +1,8 @@
 import db.DBCourse;
 import db.DBHelper;
+import db.DBInstructor;
 import db.DBLesson;
-import models.Course;
-import models.Lesson;
-import models.Mentor;
-import models.Student;
+import models.*;
 
 import java.util.List;
 
@@ -18,10 +16,14 @@ public class Runner {
         DBHelper.save(course1);
         DBHelper.save(course2);
 
+        Instructor instructor1 = new Instructor("Pawel");
+        Instructor instructor2 = new Instructor("Alex");
+        DBHelper.save(instructor1);
+        DBHelper.save(instructor2);
 
-        Lesson lesson1 = new Lesson("Science of Climate Change", 20, course1);
-        Lesson lesson2 = new Lesson("Business of Climate Change", 12, course1);
-        Lesson lesson3 = new Lesson("Accounting", 23, course2);
+        Lesson lesson1 = new Lesson("Science of Climate Change", 20, course1, instructor1);
+        Lesson lesson2 = new Lesson("Business of Climate Change", 12, course1, instructor2);
+        Lesson lesson3 = new Lesson("Accounting", 23, course2, instructor1);
         DBHelper.save(lesson1);
         DBHelper.save(lesson2);
         DBHelper.save(lesson3);
@@ -43,6 +45,7 @@ public class Runner {
         List<Student> studentsOnCourse = DBCourse.getListOfStudentsForCouse(course1);
         Student foundStudent = DBHelper.findById(Student.class, 1);
         Course foundCourse = DBHelper.findById(Course.class, 2);
+        List<Lesson> lessonsOfInstructor = DBInstructor.getListOfLessonsOfInstructor(instructor1);
 
         List<Lesson> lessonsOfCourse = DBCourse.getListOfLessonsOfCourse(course1);
 
